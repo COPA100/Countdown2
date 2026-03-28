@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import BookList from './components/BookList'
+import GenreSelector from './components/GenreSelector'
 
 const bookData = {
   fiction: [
@@ -37,30 +39,15 @@ function App() {
     <main className="bookstore-page">
       <h1>Bookstore</h1>
 
-      <div className="genre-buttons">
-        {genres.map((genre) => (
-          <button
-            key={genre}
-            type="button"
-            className={genre === selectedGenre ? 'active' : ''}
-            onClick={() => setSelectedGenre(genre)}
-          >
-            {genre}
-          </button>
-        ))}
-      </div>
+      <GenreSelector
+        genres={genres}
+        selectedGenre={selectedGenre}
+        onSelectGenre={setSelectedGenre}
+      />
 
       <h2>{selectedGenre} books</h2>
 
-      <ul className="book-list">
-        {booksToDisplay.map((book) => (
-          <li key={book.title} className="book-card">
-            <h3>{book.title}</h3>
-            <p>Author: {book.author}</p>
-            <p>Price: ${book.price.toFixed(2)}</p>
-          </li>
-        ))}
-      </ul>
+      <BookList books={booksToDisplay} />
     </main>
   )
 }
